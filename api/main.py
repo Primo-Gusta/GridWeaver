@@ -20,6 +20,13 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+@app.get("/")
+async def root():
+    return{
+        "status": "Procedural Generated Bridge, online",
+        "endpoint": "/generate"
+    }
+
 @app.get("/generate")
 async def generate_map(
     width: int = Query(50, gt=0, lt=500),

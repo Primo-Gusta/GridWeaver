@@ -8,6 +8,8 @@ var target_layer: TileMapLayer
 @onready var smoothness: SpinBox = $MainBox/ConfigBox/ConfigValues/SpinBox3
 @onready var seed: SpinBox = $MainBox/ConfigBox/ConfigValues/SpinBox4
 
+var main_url = "https://procgen-bridge.onrender.com"
+
 func _ready():
 	if not http_client:
 		http_client = HTTPRequest.new()
@@ -29,7 +31,7 @@ func _on_button_pressed() -> void:
 	send_api_call()
 
 func send_api_call():
-	var url = "http://127.0.0.1:8000/generate?width=%d&height=%d&seed=%d&smoothness=%d" % [
+	var url = main_url + "?width=%d&height=%d&seed=%d&smoothness=%d" % [
 		width.value, height.value, seed.value, smoothness.value
 	]
 	
