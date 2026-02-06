@@ -1,14 +1,10 @@
 from fastapi import FastAPI, Query
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
+import os
 from generator import generate_cellular_automata
 
-SERVER_CONFIG = {
-    "app": "main:app",
-    "host": "0.0.0.0",
-    "port": 8000,
-    "reload": True,
-    "log_level": "info"
-}
+PORT = int(os.environ.get("PORT", 8000))
 
 app = FastAPI(
     title="ProcGen-Bridge API",
@@ -16,12 +12,20 @@ app = FastAPI(
     version="1.0.0"
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
+
 @app.get("/generate")
 async def generate_map(
-    width: int = Query(50, gt=0, lt=5000),
-    height: int = Query(50, gt=0, lt=5000),
+    width: int = Query(50, gt=0, lt=500),
+    height: int = Query(50, gt=0, lt=500),
     seed: int = 42,
-    smoothness: int = 4,
+    smoothness: int = Query(4, ge=1, le=50),
 ):
     map_data = generate_cellular_automata(width, height, seed, smoothness)
     return{
@@ -34,4 +38,4 @@ async def generate_map(
     }
     
 if __name__ == "__main__":
-    uvicorn.run(**SERVER_CONFIG)
+    uvicorn.run("main:app", host="0.0.0.0", port=PORT, reload=False)
