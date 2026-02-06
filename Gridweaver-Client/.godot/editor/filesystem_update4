@@ -1,4 +1,5 @@
 res://Showcase/Main.tscn
-res://addons/procgen_bridge/dock_panel.gd
-res://addons/procgen_bridge/dock_panel.tscn
+res://addons/gridweaver/plugin.cfg
 res://addons/gridweaver/dock_panel.tscn
+res://addons/gridweaver/main_plugin.gd
+res://addons/gridweaver/dock_panel.gd

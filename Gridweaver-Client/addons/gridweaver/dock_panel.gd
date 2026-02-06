@@ -20,12 +20,12 @@ func _on_button_pressed() -> void:
 	var selection = EditorInterface.get_selection().get_selected_nodes()
 	
 	if selection.is_empty() or not selection[0] is TileMapLayer:
-		printerr("Erro: Selecione um TileMapLayer na árvore de cenas!")
+		printerr("Error: Please, select a TileMapLayer node")
 		return
 	
 	target_layer = selection[0]
 	if not target_layer.tile_set:
-		printerr("Erro: O TileMapLayer selecionado não tem um TileSet configurado!")
+		printerr("Error: TileMapLayer does not have a Tileset")
 		return
 
 	send_api_call()
@@ -34,14 +34,11 @@ func send_api_call():
 	var url = main_url + "?width=%d&height=%d&seed=%d&smoothness=%d" % [
 		width.value, height.value, seed.value, smoothness.value
 	]
-	
-	print("Chamando API: ", url)
 	var error = http_client.request(url)
 	if error != OK:
-		printerr("Erro ao iniciar request: ", error)
+		printerr("Error ", error)
 
 func _on_request_completed(_result, response_code, _headers, body):
-	print("Resposta da API: ", response_code)
 	if response_code != 200: return
 
 	var json = JSON.parse_string(body.get_string_from_utf8())
@@ -59,5 +56,3 @@ func draw_in_editor(map_data: Array):
 	
 	target_layer.notify_property_list_changed()
 	target_layer.queue_redraw()
-	
-	print("Sucesso! Mapa desenhado no Editor.")

@@ -55,10 +55,10 @@ layout_mode = 2
 [node name="SpinBox2" type="SpinBox" parent="MainBox/ConfigBox/ConfigValues"]
 layout_mode = 2
 
-[node name="SpinBox4" type="SpinBox" parent="MainBox/ConfigBox/ConfigValues"]
+[node name="SpinBox3" type="SpinBox" parent="MainBox/ConfigBox/ConfigValues"]
 layout_mode = 2
 
-[node name="SpinBox3" type="SpinBox" parent="MainBox/ConfigBox/ConfigValues"]
+[node name="SpinBox4" type="SpinBox" parent="MainBox/ConfigBox/ConfigValues"]
 layout_mode = 2
 
 [node name="GenerateButton" type="Button" parent="MainBox"]
